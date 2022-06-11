@@ -34,7 +34,7 @@
             // 
             // cmdMatriz
             // 
-            this.cmdMatriz.Location = new System.Drawing.Point(110, 259);
+            this.cmdMatriz.Location = new System.Drawing.Point(96, 273);
             this.cmdMatriz.Name = "cmdMatriz";
             this.cmdMatriz.Size = new System.Drawing.Size(75, 23);
             this.cmdMatriz.TabIndex = 0;

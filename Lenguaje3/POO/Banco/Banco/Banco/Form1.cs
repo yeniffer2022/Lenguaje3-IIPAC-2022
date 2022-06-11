@@ -63,8 +63,6 @@ namespace Banco
                 txtSaldo.Text = cuenta.Saldo.ToString();
 
             }
-
-
         }
     }
 }

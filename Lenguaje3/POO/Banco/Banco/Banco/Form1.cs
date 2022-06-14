@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibreriaCoche;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,7 @@ namespace Banco
             cliente = new Cliente(txtIdentidad.Text, txtNombre.Text);
             cuenta = new Cuenta(txtNumeroCuenta.Text, cliente, DateTime.Now, 0);
 
-
+            txtSaldo.Text = cuenta.Saldo.ToString("N");
         }
 
         private void cmdAgregar_Click(object sender, EventArgs e)
@@ -52,7 +53,6 @@ namespace Banco
                     Convert.ToDecimal(txtMonto.Text), 
                     TipoMovimientocomboBox.Text);
 
-
                 MovimientolistBox.Items.Add(
                                             "Depósito a la cuenta N. " + cuenta.NumeroCuenta +
                                             " por la cantidad de L. " + movimientoCuenta.monto + 
@@ -60,9 +60,34 @@ namespace Banco
                     
                     
                     );
-                txtSaldo.Text = cuenta.Saldo.ToString();
+                txtSaldo.Text = cuenta.Saldo.ToString("N");
 
             }
+            else if(TipoMovimientocomboBox.Text == "Retiro")
+            {
+                bool puedeRetirar=cuenta.Retirar(Convert.ToDecimal(txtMonto.Text));
+
+                if (puedeRetirar )
+                {
+                    movimientoCuenta = new MovimientoCuenta(cuenta, DateTime.Now, 
+                        Convert.ToDecimal(txtMonto.Text),
+                        TipoMovimientocomboBox.Text);
+
+                    MovimientolistBox.Items.Add(
+                                            "Retiro a la cuenta N. " + cuenta.NumeroCuenta +
+                                            " por la cantidad de L. " + movimientoCuenta.monto +
+                                            " con fecha: " + movimientoCuenta.Fecha);
+
+                    txtSaldo.Text = cuenta.Saldo.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("La cuenta N. " + cuenta.NumeroCuenta +" no tiene saldo disponible para transaccionar");
+                }
+
+
+            }
+
         }
     }
 }
